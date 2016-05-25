@@ -10,7 +10,6 @@ from tornado.options import define, options
 from tornado.util import ObjectDict
 
 
-from turbo.log import app_log
 from turbo.util import join_sys_path, get_base_dir, import_object
 
 
@@ -79,14 +78,14 @@ class AppConfig(object):
         return level
 
     def register_app(self, app_name, app_setting, web_application_setting, mainfile, package_space):
-        from turbo import log
+        # from turbo import log
         self.app_name = app_name
         self.app_setting = app_setting
         self.project_name = os.path.basename(get_base_dir(mainfile, 2))
         self.web_application_setting = web_application_setting
         if app_setting.get('session_config'):
             self.session_config.update(app_setting['session_config'])
-        log.getLogger(**app_setting.log)
+        # log.getLogger(**app_setting.log)
         _install_app(package_space)
         pass
 
@@ -100,7 +99,8 @@ class AppConfig(object):
         self.urls.extend(urls)
 
     def start(self, port):
-        app_log.info(self.app_name+' app start')
+        # from turbo.log import app_log
+        # app_log.info(self.app_name+' app start')
         self.error_handler = self.error_handler if self.error_handler else ErrorHandler
         tornado.web.ErrorHandler = self.error_handler
         application = tornado.web.Application(self.urls, **self.web_application_setting)

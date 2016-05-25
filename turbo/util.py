@@ -12,7 +12,7 @@ import copy
 
 from bson.objectid import ObjectId
 
-from turbo.log import util_log
+# from turbo.log import util_log
 
 
 def to_list_str(value, encode=None):
@@ -100,7 +100,7 @@ def to_objectid(objid):
     try:
         objid = ObjectId(objid)
     except:
-        util_log.error("%s is invalid objectid" % objid)
+        # util_log.error("%s is invalid objectid" % objid)
         return None
     
     return objid
@@ -110,28 +110,32 @@ def json_encode(data, **kwargs):
     try:
         return json.dumps(data, **kwargs)
     except Exception as e:
-        util_log.error("Uncaught exception in json_encode", exc_info=True)
+        # util_log.error("Uncaught exception in json_encode", exc_info=True)
+        pass
 
 
 def json_decode(data, **kwargs):
     try:
         return json.loads(data, **kwargs)
     except Exception as e:
-        util_log.error("Uncaught exception in json_decode", exc_info=True)
+        # util_log.error("Uncaught exception in json_decode", exc_info=True)
+        pass
 
 
 def to_int(value, default=None):
     try:
         return int(value)
     except ValueError as e:
-        util_log.error(e)
+        # util_log.error(e)
+        pass
 
 
 def to_float(value, default=None):
     try:
         return float(value)
     except ValueError as e:
-        util_log.error(e)
+        # util_log.error(e)
+        pass
 
 
 def to_datetime(t, micro=False):
