@@ -5,8 +5,6 @@ import logging
 
 from turbo.conf import app_config
 from turbo.util import join_sys_path, get_base_dir, import_object
-import turbo.helper
-from turbo.helper import install_helper
 
 
 def _install_app(package_space):
@@ -48,6 +46,15 @@ def register_url(url, handler, name=None, kwargs=None):
     
 
 def register_group_urls(prefix, urls):
-    for item in urls:
-        url, handler = item[0:2]
-        register_url(prefix+url, handler, *item[2:])
+    def add_prefix(tup):
+        lst = list(tup)
+        lst[0] = prefix + lst[0]
+        return tuple(lst)
+
+    urls = [add_prefix(tup) for tup in urls]
+    app_config.urls.extend(urls)
+
+    # urls = []
+    # for item in urls:
+    #     url, handler = item[0:2]
+    #     register_url(prefix+url, handler, *item[2:])
